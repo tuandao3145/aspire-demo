@@ -1,0 +1,6 @@
+*** Settings ***
+Resource          ../0-constants/constants.txt
+
+*** Variables ***
+${home-url}       ${server}/sg/
+${register-btn}    //a[contains(text(),"Register")]

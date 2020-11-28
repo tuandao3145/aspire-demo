@@ -1,0 +1,8 @@
+*** Settings ***
+Resource          ../3-step-detail/home-detail.txt
+Resource          ../3-step-detail/base-detail.txt
+
+*** Keywords ***
+Go To Register Page
+    Go To Home Page
+    Click Button On Home Page    ${register-btn}

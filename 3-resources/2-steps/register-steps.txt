@@ -1,0 +1,18 @@
+*** Settings ***
+Resource          ../3-step-detail/register-details.txt
+Resource          ../3-step-detail/base-detail.txt
+
+*** Keywords ***
+Register new user "${user}"
+    Log To Console    \nStart -- Register user: ${user}
+    Input Personal Details-1    ${user}
+    Click Continue
+    Verify OTP via Mail    ${OTP}
+    Log To Console    \nEnd -- Register user: ${user}
+
+"${user}" register should be completed
+    Wait Until Element Is Visible    ${completed-msg}    30s
+    Sleep    2s
+    ${full-text}    Get Text    ${completed-msg}
+    Log To Console    \nCompleted Message:\n${full-text}
+    Log To Console    \n${user} has been registed successfully

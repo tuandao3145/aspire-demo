@@ -1,0 +1,18 @@
+*** Settings ***
+Library           SeleniumLibrary
+Resource          ../1-page-objects/home-page.txt
+
+*** Keywords ***
+Go To Home Page
+    Log To Console    \nStart -- Open Homepage: ${home-url} on browser: ${browser}
+    Open Browser    ${home-url}    ${browser}    alias=homepage
+    Maximize Browser Window
+    Log To Console    \nEnd -- Open Homepage: ${home-url} on browser: ${browser}
+
+Click Button On Home Page
+    [Arguments]    ${btn}
+    Log To Console    \nStart -- Click on button ${btn} on Home Page
+    Wait Until Element Is Visible    ${btn}
+    Sleep    2s
+    Click Element    ${btn}
+    Log To Console    \nStart -- Click on button ${btn} on Home Page

@@ -1,0 +1,10 @@
+*** Variables ***
+&{user16}         name=user16    email=user16@aspire.com    code=+84    phone=10000016    role=director    incorporated=yes    method=standard    day=26    month=Aug    year=1996    nation=Viet Nam    gender=Male    purpose=Debit Account    business=user16-business    type=Company    UEN=10000016a    industry=Manufacturing
+...               sub=Electronics & Household Appliances
+&{user17}         name=user17    email=user17@aspire.com    code=+84    phone=10000017    role=director    incorporated=yes    method=standard    day=27    month=Aug    year=1997    nation=Viet Nam    gender=Male    purpose=Debit Account    business=user17-business    type=Company    UEN=10000017a    industry=Manufacturing
+...               sub=Electronics & Household Appliances
+&{user18}         name=user18    email=user18@aspire.com    code=+84    phone=10000018    role=director    incorporated=yes    method=standard    day=28    month=Aug    year=1998    nation=Viet Nam    gender=Male    purpose=Debit Account    business=user18-business    type=Company    UEN=10000018a    industry=Manufacturing
+...               sub=Electronics & Household Appliances
+&{user19}         name=user19    email=user19@aspire.com    code=+84    phone=10000019    role=director    incorporated=yes    method=standard    day=29    month=Aug    year=1999    nation=Viet Nam    gender=Male    purpose=Debit Account    business=user19-business    type=Company    UEN=10000019a    industry=Manufacturing
+...               sub=Electronics & Household Appliances
+@{user-list}      ${user10}    ${user11}    ${user12}

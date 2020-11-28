@@ -1,0 +1,14 @@
+*** Settings ***
+Library           SeleniumLibrary
+Resource          ../1-page-objects/base-page.txt
+
+*** Keywords ***
+Click Continue
+    # click continue
+    ${valid-btn}    Catenate    ${submit-btn}    [not(@disabled="disabled")]
+    ${invalid-btn}    Catenate    ${submit-btn}    [@disabled="disabled"]
+    Log To Console    \nStart -- Click submit button.
+    Wait Until Element Is Visible    ${valid-btn}    10s
+    Sleep    2s
+    Click Element    ${valid-btn}
+    Log To Console    \nEnd -- Click submit button.

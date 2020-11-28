@@ -1,0 +1,14 @@
+*** Settings ***
+Resource          ../0-constants/constants.txt
+
+*** Variables ***
+${register-url}    ${server}/sg/register
+${name-input}     //input[@name="full_name"]
+${mail-input}     //input[@name="email"]
+${country-label}    //div[@name="phone"]//label[@value]
+${phone-input}    //input[@name="phone"]
+${director-role-selector}    //div[contains(@aria-label,"Appointed")]//input/..
+${non-role-selector}    //div[contains(@aria-label,"Non")]//input/..
+${agree-check}    //div[contains(@data-cy,"privacy")]
+${otp-form}       //div[contains(@class,"otp__content")]/..
+${completed-msg}    //p[contains(text(),"successfully verified")]

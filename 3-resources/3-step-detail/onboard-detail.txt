@@ -1,0 +1,206 @@
+*** Settings ***
+Library           SeleniumLibrary
+Resource          ../1-page-objects/onboard-page.txt
+Resource          base-detail.txt
+
+*** Keywords ***
+Select Incorporation
+    [Arguments]    ${user}
+    ${incorporated-selector}    Set Variable If    "${${user}}[incorporated]"=="yes"    ${incorporated-selector}    "${${user}}[incorporated]"=="no"    ${unincorporated-selector}
+    #
+    Log To Console    \nStart -- Select incorporation: ${${user}}[incorporated]
+    Wait Until Element Is Visible    ${incorporated-selector}    10s
+    Sleep    2s
+    Click Element    ${incorporated-selector}
+    Log To Console    \nEnd -- Select incorporation: ${${user}}[incorporated]
+
+Select Register Method
+    [Arguments]    ${user}
+    ${method-selector}    Set Variable If    "${${user}}[method]"=="myinfo"    ${myinfo-selector}    "${${user}}[method]"=="standard"    ${standard-selector}
+    #
+    Log To Console    \nStart -- Select register type: ${${user}}[method]
+    Wait Until Element Is Visible    ${method-selector}    10s
+    Sleep    2s
+    Click Element    ${method-selector}
+    Log To Console    \nEnd -- Select register type: ${${user}}[method]
+
+Input Personal Details-2
+    [Arguments]    ${user}
+    Log To Console    \nStart -- Input personal details-2
+    Select DOB    ${user}
+    Select Nation    ${user}
+    Select Gender    ${user}
+    Select Purpose    ${user}
+    Log To Console    \nEnd -- Input personal details-2
+
+Input Business Details
+    [Arguments]    ${user}
+    Wait Until Element Is Visible    ${business-details-select-form}    10s
+    Sleep    2s
+    Click Continue
+    Input Name Of Business    ${user}
+    Select Registration Type    ${user}
+    Input UEN    ${user}
+    Select Industry    ${user}
+    Select Sub-Industry    ${user}
+    Click Continue
+
+Select DOB
+    [Arguments]    ${user}
+    Log To Console    \nStart -- Select DOB.
+    Click Element    ${dob-input}
+    # choose month
+    Log To Console    Choose month: ${${user}}[month]
+    Wait Until Element Is Visible    ${month-selector}    10s
+    Sleep    2s
+    Click Element    ${month-selector}
+    ${dob-month}    Catenate    ${month-item}    //span[contains(text(),"${${user}}[month]")]
+    Wait Until Element Is Visible    ${dob-month}    10s
+    Sleep    2s
+    Click Element    ${dob-month}
+    # choose year
+    Log To Console    Choose year: ${${user}}[year]
+    Wait Until Element Is Visible    ${year-selector}    10s
+    Sleep    2s
+    Click Element    ${year-selector}
+    Wait Until Element Is Not Visible    ${year-selector}    10s
+    Sleep    2s
+    ${year_pages}    Set Variable    10
+    ${dob-year}    Catenate    ${year-item}    //span[text()="${${user}}[year]"]
+    FOR    ${index}    IN RANGE    1    ${year_pages}+1
+        ${stt}    Run Keyword And Return Status    Element Should Be Visible    ${dob-year}
+        Run Keyword If    "${stt}"=="True"    Click Element    ${dob-year}
+        Exit For Loop If    "${stt}"=="True"
+        Click Element    ${pre-years-nav}
+        Sleep    2s
+    END
+    Wait Until Element Is Visible    ${year-selector}    10s
+    Sleep    2s
+    # choose day
+    Log To Console    Choose day: ${${user}}[day]
+    ${dob-day}    Catenate    ${day-item}    //span[text()="${${user}}[day]"]
+    Wait Until Element Is Visible    ${dob-day}    30s
+    Sleep    2s
+    Click Element    ${dob-day}
+    Wait Until Element Is Not Visible    ${dob-day}    10s
+    Sleep    2s
+    #
+    Log To Console    \nEnd -- Select DOB.
+
+Select Nation
+    [Arguments]    ${user}
+    ${nation}    Set Variable    ${${user}}[nation]
+    #
+    Log To Console    \nStart -- Select Nation: ${nation}
+    Wait Until Element Is Visible    ${nation-input}    10s
+    Sleep    2s
+    Input Text    ${nation-input}    ${nation}
+    ${nation-element}    Catenate    ${nation-item}    //div[text()="${nation}"]
+    Wait Until Element Is Visible    ${nation-element}    10s
+    Sleep    2s
+    Click Element    ${nation-element}
+    Wait Until Element Is Not Visible    ${nation-element}    10s
+    Sleep    2s
+    Log To Console    \nEnd -- Select Nation: ${nation}
+
+Select Gender
+    [Arguments]    ${user}
+    ${gender}    Set Variable    ${${user}}[gender]
+    #
+    Log To Console    \nStart -- Select gender: ${gender}
+    Wait Until Element Is Visible    ${gender-input}    10s
+    Sleep    2s
+    Click Element    ${gender-input}
+    ${gender-element}    Catenate    ${gender-item}    //div[text()="${gender}"]
+    Wait Until Element Is Visible    ${gender-element}    10s
+    Sleep    2s
+    Click Element    ${gender-element}
+    Wait Until Element Is Not Visible    ${gender-element}    10s
+    Sleep    2s
+    Log To Console    \nEnd -- Select gender: ${gender}
+
+Select Purpose
+    [Arguments]    ${user}
+    ${purpose}    Set Variable    ${${user}}[purpose]
+    #
+    Log To Console    \nStart -- Select purpose: ${purpose}
+    Wait Until Element Is Visible    ${purpose-input}    10s
+    Sleep    2s
+    Click Element    ${purpose-input}
+    ${purpose-element}    Catenate    //div[text()="${purpose}"]/../..    ${purpose-checkbox}
+    Wait Until Element Is Visible    ${purpose-element}    10s
+    Sleep    2s
+    Click Element    ${purpose-element}
+    Sleep    2s
+    Click Element    ${purpose-input}
+    Wait Until Element Is Not Visible    ${purpose-element}    10s
+    Sleep    2s
+    Log To Console    \nEnd -- Select purpose: ${purpose}
+
+Input Name Of Business
+    [Arguments]    ${user}
+    ${business}    Set Variable    ${${user}}[business]
+    #
+    Log To Console    \nStart -- Input business name: ${business}
+    Wait Until Element Is Visible    ${business-input}    10s
+    Sleep    2s
+    Input Text    ${business-input}    ${business}
+    Log To Console    \nEnd -- Input business name: ${business}
+
+Select Registration Type
+    [Arguments]    ${user}
+    ${type}    Set Variable    ${${user}}[type]
+    #
+    Log To Console    \nStart -- Select registration type: ${type}
+    Wait Until Element Is Visible    ${type-input}    10s
+    Sleep    2s
+    Click Element    ${type-input}
+    ${type-element}    Catenate    ${type-item}    //div[contains(text(),"${type}")]
+    Wait Until Element Is Visible    ${type-element}    10s
+    Sleep    2s
+    Click Element    ${type-element}
+    Wait Until Element Is Not Visible    ${type-element}    10s
+    Sleep    2s
+    Log To Console    \nEnd -- Select registration type: ${type}
+
+Input UEN
+    [Arguments]    ${user}
+    ${uen}    Set Variable    ${${user}}[UEN]
+    #
+    Log To Console    \nStart -- Input UEN: ${uen}
+    Wait Until Element Is Visible    ${uen-input}    10s
+    Sleep    2s
+    Input Text    ${uen-input}    ${uen}
+    Log To Console    \nEnd -- Input UEN: ${uen}
+
+Select Industry
+    [Arguments]    ${user}
+    ${industry}    Set Variable    ${${user}}[industry]
+    #
+    Log To Console    \nStart -- Select industry: ${industry}
+    Wait Until Element Is Visible    ${industry-input}    10s
+    Sleep    2s
+    Click Element    ${industry-input}
+    ${industry-element}    Catenate    ${industry-item}    //div[contains(text(),"${industry}")]
+    Wait Until Element Is Visible    ${industry-element}    10s
+    Sleep    2s
+    Click Element    ${industry-element}
+    Wait Until Element Is Not Visible    ${industry-element}    10s
+    Sleep    2s
+    Log To Console    \nEnd -- Select industry: ${industry}
+
+Select Sub-Industry
+    [Arguments]    ${user}
+    ${sub}    Set Variable    ${${user}}[sub]
+    #
+    Log To Console    \nStart -- Select sub-industry: ${sub}
+    Wait Until Element Is Visible    ${sub-input}    10s
+    Sleep    2s
+    Click Element    ${sub-input}
+    ${sub-element}    Catenate    ${sub-item}    //div[contains(text(),"${sub}")]
+    Wait Until Element Is Visible    ${sub-element}    10s
+    Sleep    2s
+    Click Element    ${sub-element}
+    Wait Until Element Is Not Visible    ${sub-element}    10s
+    Sleep    2s
+    Log To Console    \nEnd -- Select sub-industry: ${sub}

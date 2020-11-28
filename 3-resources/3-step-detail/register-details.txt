@@ -1,0 +1,90 @@
+*** Settings ***
+Library           SeleniumLibrary
+Resource          ../1-page-objects/register-page.txt
+
+*** Keywords ***
+Input Personal Details-1
+    [Arguments]    ${user}
+    Log To Console    \nStart -- Input personal details-1
+    #
+    Input User Name    ${user}
+    Input User Email    ${user}
+    Select Country Code    ${user}
+    Input \ Phone Number    ${user}
+    Select User Role    ${user}
+    Check Agreement
+    #
+    Log To Console    \nEnd -- Input personal details-1
+
+Verify OTP via Mail
+    [Arguments]    ${otp}
+    Log To Console    \nStart -- Verify OTP
+    Wait Until Element Is Visible    ${otp-form}    10s
+    Sleep    2s
+    Press Keys    None    ${otp}
+    Log To Console    \nEnd -- Verify OTP
+    Sleep    2s
+
+Input User Name
+    [Arguments]    ${user}
+    ${user-name}    Set Variable    ${${user}}[name]
+    #
+    Log To Console    \nStart -- Input user name: ${user-name}.
+    Wait Until Element Is Visible    ${name-input}    10s
+    Sleep    2s
+    Input Text    ${name-input}    ${user-name}
+    Log To Console    \nEnd -- Input user name: ${user-name}.
+
+Input User Email
+    [Arguments]    ${user}
+    ${email}    Set Variable    ${${user}}[email]
+    #
+    Log To Console    \nStart -- Inputt email: ${email}
+    Wait Until Element Is Visible    ${mail-input}    10s
+    Sleep    2s
+    Input Text    ${mail-input}    ${email}
+    Log To Console    \nEnd -- Inputt email: ${email}
+
+Select Country Code
+    [Arguments]    ${user}
+    ${code}    Set Variable    ${${user}}[code]
+    #
+    Log To Console    \nStart -- Select country code: ${code}
+    Click Element    ${country-label}
+    ${country-selector}    Set Variable    //div[@class="q-item__label"][contains(text(),"${code}")]
+    Wait Until Element Is Visible    ${country-selector}    30s
+    Sleep    2s
+    Click Element    ${country-selector}
+    Sleep    2s
+    Log To Console    \nEnd -- Select country code: ${code}
+
+Input \ Phone Number
+    [Arguments]    ${user}
+    ${phone-number}    Set Variable    ${${user}}[phone]
+    #
+    Log To Console    \nStart -- Input phone number: ${phone-number}
+    Wait Until Element Is Visible    ${phone-input}    10s
+    Sleep    2s
+    Input Text    ${phone-input}    ${phone-number}
+    Log To Console    \nEnd -- Input phone number: ${phone-number}
+
+Select User Role
+    [Arguments]    ${user}
+    ${role-selector}    Set Variable If    "${${user}}[role]"=="director"    ${director-role-selector}    "${${user}}[role]"=="non"    ${non-role-selector}
+    #
+    Log To Console    \nStart -- Select role: ${${user}}[role]
+    Wait Until Element Is Visible    ${role-selector}    10s
+    Sleep    2s
+    Click Element    ${role-selector}
+    Log To Console    \nEnd -- Select role: ${${user}}[role]
+
+Check Agreement
+    ${unchecked-box}    Catenate    ${agree-check}    [@aria-checked="false"]
+    ${checked-box}    Catenate    ${agree-check}    [@aria-checked="true"]
+    Log To Console    \nStart -- Check agreement checkbox.
+    Wait Until Element Is Visible    ${unchecked-box}    10s
+    Sleep    2s
+    Click Element    ${unchecked-box}
+    Wait Until Element Is Visible    ${checked-box}    10s
+    Sleep    2s
+    Log To Console    \nEnd -- Check agreement checkbox.

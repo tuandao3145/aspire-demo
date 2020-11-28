@@ -1,0 +1,22 @@
+*** Settings ***
+Resource          ../3-step-detail/onboard-detail.txt
+Resource          ../3-step-detail/base-detail.txt
+
+*** Keywords ***
+Process user "${user}" onboarding
+    Log To Console    \nStart -- Process onboarding user: ${user}
+    Select Incorporation    ${user}
+    Select Register Method    ${user}
+    Click Continue
+    Input Personal Details-2    ${user}
+    Click Continue
+    Input Business Details    ${user}
+    Click Continue
+    Log To Console    \nEnd -- Process onboarding user: ${user}
+
+"${user}" onboarding should be completed
+    Wait Until Element Is Visible    ${identity-select-form}    300s
+    Sleep    2s
+    ${full-text}    Get Text    ${identity-select-form}
+    Log To Console    \nCompleted Message:\n${full-text}
+    Log To Console    \n${user} onboard has been processed successfully

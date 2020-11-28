@@ -1,0 +1,5 @@
+*** Settings ***
+Resource          ../0-constants/constants.txt
+
+*** Variables ***
+${submit-btn}     //button[@type="submit"]

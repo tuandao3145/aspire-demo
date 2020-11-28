@@ -1,0 +1,13 @@
+numpy==1.19.4
+Pillow==8.0.1
+Pygments==2.7.2
+Pypubsub==4.0.3
+pywin32==300
+robotframework==3.2.2
+robotframework-pythonlibcore==2.1.0
+robotframework-ride==2.0b1
+robotframework-seleniumlibrary==4.5.0
+selenium==3.141.0
+six==1.15.0
+urllib3==1.26.2
+wxPython==4.0.7.post2

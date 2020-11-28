@@ -1,0 +1,32 @@
+*** Settings ***
+Resource          ../0-constants/constants.txt
+
+*** Variables ***
+${incorporated-selector}    //span[contains(text(),"Yes")]/../../button
+${unincorporated-selector}    //span[contains(text(),"don")]/../../button
+${myinfo-selector}    //span[contains(text(),"MyInfo")]/../../button
+${standard-selector}    //span[contains(text(),"Standard")]/../../button
+${dob-input}      //input[contains(@placeholder,"birth")]
+${month-selector}    (//div[contains(@class,"date__navigation")]//span[@class="block"])[1]
+${year-selector}    (//div[contains(@class,"date__navigation")]//span[@class="block"])[2]
+${month-item}     //div[contains(@class,"months-item")]
+${year-item}      //div[contains(@class,"years-item")]
+${pre-years-nav}    //div[contains(@class,"date__view")]/div[@class="col-auto"]//i[contains(@class,"left")]
+${next-years-nav}    //div[contains(@class,"date__view")]/div[@class="col-auto"]//i[contains(@class,"right")]
+${day-item}       //div[contains(@class,"item--in")]
+${nation-input}    //input[contains(@url,"countries")]
+${nation-item}    //div[contains(@class,"dense")]
+${gender-input}    //input[contains(@placeholder,"gender")]
+${gender-item}    //div[contains(@class,"dense")]
+${purpose-input}    //div[contains(@placeholder,"purpose")]/span/..
+${purpose-checkbox}    //div[@role="checkbox"]
+${business-input}    //input[contains(@data-cy,"name")]
+${type-input}     //input[contains(@data-cy,"type")]
+${uen-input}      //input[contains(@data-cy,"num")]
+${industry-input}    //input[contains(@data-cy,"business-industry")]
+${sub-input}      //input[contains(@data-cy,"sub")]
+${type-item}      //div[contains(@class,"dense")]
+${industry-item}    //div[contains(@class,"dense")]
+${sub-item}       //div[contains(@class,"dense")]
+${identity-select-form}    //div[contains(text(),"Identity Verification")]
+${business-details-select-form}    //div[@class="auth-form"]//div[contains(text(),"Business Details")]
