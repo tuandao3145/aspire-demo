@@ -6,7 +6,7 @@ Resource          ../../3-resources/2-steps/onboard-steps.txt
 
 *** Test Cases ***
 1-Valid-Registration
-    Set Suite Variable    ${user}    user16
+    Set Suite Variable    ${user}    user17
     GIVEN Go To Register Page
     WHEN Register and Process Onboarding new user "${user}"
     THEN "${user}" profile should be completed and waiting for approval
