@@ -22,7 +22,7 @@ II)	Run demo test:
 	
 1. via RIDE:
 
-	After acivate venv, run ride.py to open RIDE
+	After acivate venv, run ride.py to open RIDE to edit testcase
 	navigate to:	aspire-demo\1-tests\functional
 	open suite:		1.Registration-Validation.robot
 	tick testcaes:	1-Valid-Registration
